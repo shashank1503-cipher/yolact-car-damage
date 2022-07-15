@@ -128,6 +128,16 @@ dataset_base = Config({
     'label_map': None
 })
 
+car_damage_dataset = dataset_base.copy({
+  'name': 'Car Damage Detection Dataset',
+  'train_info': '../car_damage/car_damage/train/coco_annotations.json',
+  'train_images': '../car_damage/car_damage/train/images/',
+  'valid_info': '../car_damage/car_damage/val/coco_annotations.json',
+  'valid_images': '../car_damage/car_damage/val/images/',
+  'class_names': ('Dent','Scratch','Paint Removal'),
+  'label_map': { 1:  1, 2 : 2 , 3 : 3 }
+})
+
 coco2014_dataset = dataset_base.copy({
     'name': 'COCO 2014',
     
@@ -765,6 +775,16 @@ yolact_resnet50_pascal_config = yolact_resnet50_config.copy({
         'pred_scales': [[32], [64], [128], [256], [512]],
         'use_square_anchors': False,
     })
+})
+
+yolact_resnet50_car_damage_config = yolact_resnet50_config.copy({
+    'name': 'yolact_plus_resnet50_car_damage',
+    # Dataset stuff
+    'dataset': car_damage_dataset,
+    'num_classes': len(car_damage_dataset.class_names) + 1,
+
+    # Image Size
+    'max_size': 512,
 })
 
 # ----------------------- YOLACT++ CONFIGS ----------------------- #
