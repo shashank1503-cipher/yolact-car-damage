@@ -148,6 +148,7 @@ class COCODetection(data.Dataset):
             # Pool all the masks for this image into one [num_objects,height,width] matrix
             masks = [self.coco.annToMask(obj).reshape(-1) for obj in target]
             masks = np.vstack(masks)
+            print(masks)
             masks = masks.reshape(-1, height, width)
 
         if self.target_transform is not None and len(target) > 0:
