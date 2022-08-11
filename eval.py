@@ -1,3 +1,9 @@
+import pycocotools
+import numpy as np
+import torch
+import torch.backends.cudnn as cudnn
+from torch.autograd import Variable
+
 from data import COCODetection, get_label_map, MEANS, COLORS
 from yolact import Yolact
 from utils.augmentations import BaseTransform, FastBaseTransform, Resize
@@ -6,14 +12,7 @@ from layers.box_utils import jaccard, center_size, mask_iou
 from utils import timer
 from utils.functions import SavePath
 from layers.output_utils import postprocess, undo_image_transformation
-import pycocotools
-
 from data import cfg, set_cfg, set_dataset
-
-import numpy as np
-import torch
-import torch.backends.cudnn as cudnn
-from torch.autograd import Variable
 import argparse
 import time
 import random
@@ -120,10 +119,8 @@ def parse_args(argv=None):
 
     global args
     args = parser.parse_args(argv)
-
     if args.output_web_json:
         args.output_coco_json = True
-    
     if args.seed is not None:
         random.seed(args.seed)
 
@@ -1048,7 +1045,6 @@ def print_maps(all_maps):
 
 if __name__ == '__main__':
     parse_args()
-
     if args.config is not None:
         set_cfg(args.config)
 

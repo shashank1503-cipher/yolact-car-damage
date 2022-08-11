@@ -6,7 +6,7 @@ import numpy as np
 from itertools import product
 from math import sqrt
 from typing import List
-from collections import defaultdict
+from collections import OrderedDict, defaultdict
 
 from data.config import cfg, mask_type
 from layers import Detect
@@ -477,7 +477,6 @@ class Yolact(nn.Module):
     def load_weights(self, path):
         """ Loads weights from a compressed save file. """
         state_dict = torch.load(path)
-
         # For backward compatability, remove these (the new variable is called layers)
         for key in list(state_dict.keys()):
             if key.startswith('backbone.layer') and not key.startswith('backbone.layers'):
